@@ -20,9 +20,13 @@ métricas, priorizando el **Recall** (Sensibilidad o tasa de Verdaderos Positivo
 mide la exhaustividad del modelo, permitiendo predecir las cancelaciones con mayor certeza, 
 a costa de una mayor tasa de Falsos Positivos. Esto debido a que en nuestro caso de uso,
 es preferible asumir el costo de enviar promociones a falsos positivos que perder
-los ingresos recurrentes de un cliente real.
+los ingresos recurrentes de un cliente real, ya que el costo de obtener un nuevo cliente
+puede ser de 5 a 25 veces más alto que retener uno ya existente (https://www.yotpo.com/blog/cost-of-customer-acquisition-vs-retention/)
 
 ## Decisiones Técnicas
+* **Feature Engineering:** Se generó una variable sintética que suma la cantidad de servicios adicionales contratados ligados al servicio de internet.
+Esta métrica representa el Costo de Cambio del cliente. A mayor número de servicios integrados, mayor es la fricción logística y psicológica para cancelar el contrato (efecto stickiness).
+
 * **Manejo del Desbalanceo:** Se identificó una proporción de 3:1 entre clientes leales
 y fugitivos. Se implementó la técnica `SMOTE` dentro de un `Pipeline` estricto para generar 
 datos sintéticos y evitar la fuga de datos (Data Leakage) durante el entrenamiento.
